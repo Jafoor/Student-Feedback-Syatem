@@ -1,0 +1,36 @@
+{% extends 'front/master.html' %}
+
+{% block content %}
+
+
+<form action="" method="POST" calss="form justify-content-center mt-3">
+{% csrf_token %}
+{% for i in question %}
+<br>
+<h4 align="center">Answer All the Question </h4>
+<br>
+<div class="card">
+  <div class="card-header">
+    <div class="input-group mb-2">
+      <div class="input-group-append">
+        <span class="input-group-text">{{i.name}}</span>
+        <select name="{{i.name}}" id="type" required>
+        <option style="text-align: center" value='1'>{{i.typ1}}</option>
+        <option style="text-align: center" value='2'>{{i.typ2}}</option>
+        <option style="text-align: center" value='3'>{{i.typ3}}</option>
+        <option style="text-align: center" value='4'>{{i.typ4}}</option>
+      </select>
+        </div>
+    </div>
+  </div>
+</div>
+
+<br>
+{% endfor %}
+
+<div class="d-flex justify-content-center mt-3 login_container">
+  <input class="" type="submit" value="Submit">
+  </div>
+
+</form>
+{% endblock %}

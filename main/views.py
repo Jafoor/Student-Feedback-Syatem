@@ -40,6 +40,7 @@ def revpoint(l):
     return str2
 
 
+@login_required(login_url = '/login/')
 def addquestion(request):
 
     if request.method == 'POST':
@@ -57,10 +58,12 @@ def addquestion(request):
 
     return render(request, 'back/addquestion.html')
 
+@login_required(login_url = '/login/')
 def allquestion(request):
 
     return render(request, 'back/allquestion.html')
 
+@login_required(login_url = '/login/')
 def addsubject(request):
 
     if request.method == 'POST':
@@ -75,6 +78,7 @@ def addsubject(request):
 
     return render(request, 'back/addsubject.html')
 
+@login_required(login_url = '/login/')
 def addreviewset(request):
 
     sem = {1:'1st year 1st semester', 2:'1st year 2nd semester', 3:'2nd year 1st semester',4:'2nd year 2nd semester',5:'3rd year 1st semester',6:'3rd year 2nd semester',7:'4th year 1st semester',8:'4th year 2nd semester'}
@@ -100,6 +104,7 @@ def addreviewset(request):
 
     return render(request, 'back/addreviewset.html',{'semester':sem,'teachers':teachers,'subjects':subjects})
 
+@login_required(login_url = '/login/')
 def setquestion(request,pk):
 
     question = Question.objects.all().order_by('-pk')
@@ -117,3 +122,31 @@ def setquestion(request,pk):
         b.save()
 
     return render(request, 'back/setquestions.html',{'question':question})
+
+@login_required(login_url = '/login/')
+def submitanswer(request,pk):
+
+    q = ReviewSet.objects.get(pk=pk)
+    question = q.question.all()
+    usr = request.user.username
+
+    if request.method == 'POST':
+
+        if usr not in q.given:
+            total = 0
+            for i in question:
+                value = request.POST.get(i.name)
+                total += int(value)
+            q.totalpoint = total
+            given = q.given
+            given += usr
+            q.given = given
+            q.save()
+            messages.info(request, 'Successfully added review')
+            return redirect('home')
+        else:
+            messages.info(request, 'You given it earlier')
+            return redirect('home')
+
+
+    return render(request, 'front/submitanswer.html',{'question':question})

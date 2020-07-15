@@ -1,0 +1,75 @@
+{% extends 'front/master.html' %}
+
+{% block content %}
+
+
+<style>
+
+	#remaining{
+		text-align: center;
+	}
+</style>
+
+<h4 id="remaining" class="p-3 mb-2 bg-danger text-white"> Remaining Review Set </h4>
+{% if not a%}
+<p id="messages" class="p-3 mb-2 bg-success text-white" style="text-align:center;">Congratulations! you have no remaining review set </p>
+{% endif %}
+
+{% for i in revset %}
+
+{% if user.username not in i.given %}
+
+<div class="card text-center">
+  <div class="card-header">
+    {{i.name}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{i.semester}}</h5>
+    <h5 class="card-title">{{i.teacher}}</h5>
+    <h5 class="card-title">Submission Lastdate : {{i.endtime}}</h5>
+    <a href="{% url 'submitanswer' pk=i.pk %}" class="btn btn-primary">Give Review</a>
+  </div>
+
+</div>
+{% endif %}
+<br>
+
+<h4 id="completed" class = "p-3 mb-2 bg-success text-white" style="text-align: center">Completed Rvview Set</h4>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+{% for message in messages %}
+
+<p id="messages" class="p-3 mb-6 bg-danger text-white" style="align:center;">{{message}} </p>
+
+{% endfor %}
+
+{% for i in revset %}
+	{% if user.username  in i.given %}
+
+	<div class="card text-center">
+	  <div class="card-header">
+	    {{i.name}}
+	  </div>
+	  <div class="card-body">
+	    <h5 class="card-title">{{i.semester}}</h5>
+	    <h5 class="card-title">{{i.teacher}}</h5>
+	    <h5 class="card-title">Submission Lastdate : {{i.endtime}}</h5>
+	    <a href="{% url 'submitanswer' pk=i.pk %}" class="btn btn-primary">Give Review</a>
+	  </div>
+
+	</div>
+
+	{% endif %}
+
+{% endfor %}
+
+
+<script>
+	$(document).ready(function() {
+		$('#messages').fadeOut(10000); // 10 seconds x 1000 milisec = 10000 milisec
+	});
+</script>
+
+{% endfor %}
+
+{% endblock %}

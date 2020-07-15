@@ -9,11 +9,29 @@ from .forms import CreateUserForm
 import datetime
 from django.utils.timezone import utc
 from django.contrib.auth.models import Group
+from main.models import *
 # Create your views here.
 
+@login_required(login_url = '/login/')
 def home(request):
+    usr = request.user.username
+    remaining = []
+    
+    if request.user.is_superuser:
+        return render(request, 'front/home.html')
+    try:
+        usr = StudentProfile.objects.get(user=usr)
+        try:
+            revset = ReviewSet.objects.filter(semester=usr.year_semester)
+            for i in revset:
+                if usr not in i.given:
+                    remaining.append(i)
+        except:
+            return render(request, 'front/home.html',{'revset':revset,'remaining':remaining})
+    except:
+        return render(request, 'front/home.html',{'revset':revset, 'remaining':remaining})
 
-    return render(request, 'front/home.html')
+    return render(request, 'front/home.html',{'revset':revset, 'remaining':remaining})
 
 def registerPage(request):
     if request.user.is_authenticated:
@@ -24,9 +42,10 @@ def registerPage(request):
         if request.method == 'POST':
             form = CreateUserForm(request.POST)
             if form.is_valid():
-                form.save()
-                user = form.cleaned_data.get('username')
-                messages.success(request, 'Account was created for ' + user)
+                user = form.save()
+                username = form.cleaned_data.get('username')
+
+                messages.success(request, 'Account was created for ' + username)
                 print(user)
 
                 f = request.POST.get('type')
@@ -35,10 +54,14 @@ def registerPage(request):
                     b = StudentProfile(user = user)
 
                     b.save()
+                    group = Group.objects.get(name="student")
+                    user.groups.add(group)
                 if f == 'teacher':
 
                     b = Teacher(name = user)
                     b.save()
+                    group = Group.objects.get(name="teacher")
+                    user.groups.add(group)
 
                 return redirect('login')
 
@@ -64,10 +87,13 @@ def loginPage(request):
         context = {}
         return render(request , 'front/login.html', context)
 
+@login_required(login_url = '/login/')
 def logoutUser(request):
 	logout(request)
 	return redirect('login')
 
+
+@login_required(login_url = '/login/')
 def dashboard(request):
 
     return render(request, 'back/dashboard.html')

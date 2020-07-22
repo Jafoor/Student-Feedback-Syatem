@@ -1,6 +1,6 @@
-#Student Feedback System
+# Student Feedback System
 
-###Install Process
+### Install Process
 
 1. Download or clone the project
 

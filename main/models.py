@@ -44,7 +44,7 @@ class ReviewSet(models.Model):
     revpoint = models.CharField(max_length=1000, blank=True)
     given = models.TextField(blank=True)
     totalpoint = models.IntegerField(default=0)
-
+    avg = models.IntegerField(default=0, blank=True, null=True)
     def __str__(self):
         return self.name
 

@@ -133,7 +133,7 @@ def submitanswer(request,pk):
     if request.method == 'POST':
 
         if usr not in q.given:
-            total = 0
+            total = q.totalpoint
             for i in question:
                 value = request.POST.get(i.name)
                 total += int(value)
@@ -141,6 +141,8 @@ def submitanswer(request,pk):
             given = q.given
             given += usr
             q.given = given
+            avg = (total*100)/(len(question)*5)
+            q.avg = avg
             q.save()
             messages.info(request, 'Successfully added review')
             return redirect('home')

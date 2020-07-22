@@ -1,3 +1,4 @@
+
 {% extends 'front/master.html' %}
 
 {% block content %}
@@ -10,6 +11,7 @@
 	}
 </style>
 
+{% if userType == 'student' %}
 <h4 id="remaining" class="p-3 mb-2 bg-danger text-white"> Remaining Review Set </h4>
 {% if not a%}
 <p id="messages" class="p-3 mb-2 bg-success text-white" style="text-align:center;">Congratulations! you have no remaining review set </p>
@@ -43,6 +45,7 @@
 
 {% endfor %}
 
+
 {% for i in revset %}
 	{% if user.username  in i.given %}
 
@@ -64,12 +67,29 @@
 {% endfor %}
 
 
+
 <script>
 	$(document).ready(function() {
 		$('#messages').fadeOut(10000); // 10 seconds x 1000 milisec = 10000 milisec
 	});
 </script>
 
+
 {% endfor %}
+{% elif userType == 'teacher' %}
+{% for i in revset %}
+<div class="card text-center">
+	<div class="card-header">
+		{{i.name}}
+	</div>
+	<div class="card-body">
+		<h5 class="card-title">{{i.semester}}</h5>
+		<h5 class="card-title">Your Review : </h5>
+	<h5 class="card-title">{{i.avg}}%</h5>
+	</div>
+
+</div>
+{% endfor %}
+{% endif %}
 
 {% endblock %}

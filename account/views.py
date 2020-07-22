@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm
 import datetime
 from django.utils.timezone import utc
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from main.models import *
 # Create your views here.
 
@@ -16,22 +16,42 @@ from main.models import *
 def home(request):
     usr = request.user.username
     remaining = []
-    
+
+    teachers = Group.objects.get(name="teacher").user_set.all()
+    students = Group.objects.get(name="student").user_set.all()
+
     if request.user.is_superuser:
         return render(request, 'front/home.html')
-    try:
-        usr = StudentProfile.objects.get(user=usr)
+    elif request.user in students:
+        userType = 'student'
         try:
-            revset = ReviewSet.objects.filter(semester=usr.year_semester)
+            std = StudentProfile.objects.get(user=usr)
+            revset = ReviewSet.objects.filter(semester=std.year_semester)
+
             for i in revset:
                 if usr not in i.given:
                     remaining.append(i)
-        except:
-            return render(request, 'front/home.html',{'revset':revset,'remaining':remaining})
-    except:
-        return render(request, 'front/home.html',{'revset':revset, 'remaining':remaining})
 
-    return render(request, 'front/home.html',{'revset':revset, 'remaining':remaining})
+            return render(request, 'front/home.html',{'revset':revset,'remaining':remaining,'userType':userType})
+        except:
+            revset = []
+            return render(request, 'front/home.html',{'revset':revset,'remaining':remaining,'userType':userType})
+    elif request.user in teachers:
+        userType = 'teacher'
+        teachername = Teacher.objects.get(name=request.user.username)
+        revset = ReviewSet.objects.filter(teacher=teachername)
+        total = len(revset)
+        for i in revset:
+            totalquestion = i.question.all()
+            totalquestion = len(totalquestion)
+            totalpoint = int(i.totalpoint)
+            avg = (totalpoint*100)/(totalquestion*5)
+            print(avg)
+            remaining.append(avg)
+        return render(request, 'front/home.html',{'revset':revset, 'remaining':remaining,'userType':userType,'total':total})
+
+
+    return render(request, 'front/home.html',{ 'remaining':remaining})
 
 def registerPage(request):
     if request.user.is_authenticated:

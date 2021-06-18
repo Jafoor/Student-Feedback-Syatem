@@ -1,0 +1,49 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block body %}
+
+{% include 'navbar.html' %}
+
+<section id="hero_area">
+    <div class="inner_hero container">
+        <img src="{{ stuprofile.profile_pic.url }}" alt="" class="alignleft">
+        <h4>{{stuprofile.fname}} {{stuprofile.lname}}</h4>
+        <p>
+            {{stuprofile.year_semester}}<br>
+            Roll No: {{user.username}} <br>
+            Session: {{stuprofile.batch}}<br>
+            Email: {{user.email}}<br>
+            Contact No: {{stuprofile.contantnum}}<br>
+            Course List: <br>
+        </p>
+        <table>
+            <tr>
+                <th>Course Id</th>
+                <th>Course Name</th>
+            </tr>
+            <tr>
+                <td>CSE 3101</td>
+                <td>Theory of Computation</td>
+            </tr>
+            <tr>
+                <td>CSE 3102</td>
+                <td>Operating System</td>
+            </tr>
+            <tr>
+                <td>CSE 3103</td>
+                <td>Data Communication</td>
+            </tr>
+            <tr>
+                <td>CSE 3104</td>
+                <td>Periphral</td>
+            </tr>
+            <tr>
+                <td>CSE 3105</td>
+                <td>Numerical Method</td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+{% endblock %}

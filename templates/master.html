@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width-device-width, initial-scale=1, minimum-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    {% block body %}
+
+
+
+    {% endblock %}
+
+    <footer id="footer_area">
+        <div class="inner_footer container">
+            <div id="copyright_area">
+                <div class="inner_copyright container">
+                    <div class="left_copyright">
+                        <p>Copyright © 2021 Domain Name - All Rights Reserved</p>
+                    </div>
+                    <div class="right_copyright">
+                        <p>Template by OS Templates</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="{% static 'js/meanmenu.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

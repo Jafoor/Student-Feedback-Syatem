@@ -1,0 +1,30 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block body %}
+
+<header class="header_area">
+   <div id="main_header_area">
+       <div class="inner_header container">
+        <div class="logo_area">
+            <a href="#"><img src="{% static 'img/logo1.png' %}" alt="Logo"></a>
+        </div>
+    </div>
+   </div>
+</header>
+<section id="login_area">
+    <div class="inner_login container">
+        <div class="login_area">
+           <h2>LOGIN</h2>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username...">
+                <input type="password" name="password" placeholder="Password...">
+                <input type="submit" value="Login">
+                <a href="">Forget Password</a>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

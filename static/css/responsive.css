@@ -1,0 +1,29 @@
+/**tablet layout**/
+@media only screen and (min-width:200px) and (max-width:991px){
+    #login_area .login_area a {margin: 120px;}
+    .header_area .logo_area {margin: auto;float: none;width: 250px;}
+    #hero_area .inner_hero img {margin-bottom: 0;margin-left: 100px;float:none;}
+    #hero_area .inner_hero h4, #hero_area .inner_hero p{text-align: center;}
+    #hero_area .inner_hero table{width: 60%;text-align: center;margin: auto;}
+    #feedbackstatus_area .inner_feedbackstatus .comment ul {width: 100%;}
+    #feedbackstatus_area .inner_feedbackstatus td{width: 50%;}
+    #teacherdashboard_area .inner_teacherdashboard img {margin-bottom: 0;margin-left: 100px;float:none;}
+    #teacherdashboard_area .inner_teacherdashboard h4, #teacherdashboard_area .inner_teacherdashboard p{text-align: center;}
+    #footer_area .left_copyright{width: 100%;}
+    #footer_area .right_copyright{width: 100%;float: left;text-align: left;}
+      
+}
+/**mobile layout**/
+@media only screen and (min-width:200px) and (max-width:480px){
+    #hero_area .inner_hero img {margin:auto;float:none;}
+    #teacherdashboard_area .inner_teacherdashboard img {margin:auto;float:none;}
+    #feedback_area .inner_feedback {overflow: initial;width: 100%;}
+    #feedback_area .inner_feedback h4{text-align: center;}
+    #feedback_area .inner_feedback table{margin-left: -10px;}
+    #feedbackstatus_area .inner_feedbackstatus h4, #feedbackstatus_area .inner_feedbackstatus p{text-align: center;}
+    #feedbackstatus_area .inner_feedbackstatus .comment ul {width: 52%;}
+    #feedbackstatus_area .inner_feedbackstatus .comment ul li{text-align: center;margin-bottom: 10px;}
+    #feedbackstatus_area .inner_feedbackstatus.inner_feedbackstatus table{width: 105%;}
+    #profile_area .inner_profile h4{text-align: center;}
+    #feedbackstatistics_area .inner_feedbackstatistics h4{text-align: center;}
+}

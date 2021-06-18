@@ -1,0 +1,462 @@
+/*
+Common CSS
+*/
+html {
+    position: relative;
+    min-height: 100%;
+}
+body{
+    color: #666666;
+    font-family: Georgia, sans-serif;
+    font-size: 16px;
+    line-height: 1.5em;
+    margin: 0;
+    margin-bottom: 170px;
+}
+.container{
+    margin: 0 auto;
+    max-width: 960px;
+    width: 96%;
+}
+img{
+    max-width: 100%;
+    height: auto;
+}
+.alignleft{
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+.alignright{
+    float: right;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+.aligncenter{
+    display: block;
+    margin: 0 auto 15px;
+}
+/*
+header area CSS
+*/
+.header_area{
+    width: 100%;
+    clear: both;
+}
+#main_header_area{
+    width: 100%;
+    border-bottom: 0.5px solid #d5e0d5;
+    clear: both;
+}
+.inner_header{
+    padding: 25px 0;
+    overflow: hidden;
+}
+.logo_area{
+    padding-top: 3px;
+    float: left;
+    width: 300px;
+}
+
+.menu_area{
+    padding-top: 3px;
+    float: right;
+    max-width: 600px;
+    width: 100%;
+}
+.menu_area ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: right;
+}
+.menu_area ul li{
+    display: inline-block;
+    margin-left: 20px;  
+}
+.menu_area ul li a{
+    display: block;
+    text-decoration: none;
+    color: #14a800;
+    font-size: 16px;
+    font-weight: 600;
+}
+.menu_area ul li a:hover{
+    color: #013220;
+}
+.menu_area ul li input[type="submit"]{
+    width: 80px;
+    cursor:auto;
+    font-size: 16px;
+    margin: 0 auto 1px;
+    background: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 10px 10px;
+    padding: 10px;
+}
+.menu_area ul li input[type="submit"]:hover{
+    color: #ff0000;
+    background: #fff;
+}
+/*
+login area CSS
+*/
+#login_area{
+    background: #fff;
+    padding: 0;
+    margin: 0;
+}
+.inner_login{
+    overflow: hidden;
+}
+.login_area{
+    width: 50%;
+    padding: 30px;
+    display: block;
+    margin: 50px auto 109px;
+    border: .5px solid #d5e0d5;
+    border-radius: 10px 10px;
+}
+.login_area h2{
+    text-align: center;
+    color: #14a800;
+}
+.login_area input{
+    background: #f2f2f2;
+    border: 0px solid;
+    padding: 15px;
+    border-radius: 10px 10px;
+    margin-bottom: 10px;
+    width: 80%;
+    display: block;
+    margin: 0 auto 15px;
+    color: #14a800;
+    font-family: Georgia, sans-serif;
+}
+.login_area input:focus {
+    outline: none !important;
+    border: 0.5px solid #14a800;
+}
+.login_area input[type="submit"]{
+    width: 80px;
+    color: #14a800;
+    cursor:auto;
+    font-size: 16px;
+}
+.login_area input[type="submit"]:hover{
+    background: #14a800;
+    color: #fff;
+}
+.login_area a{
+    text-decoration: none;
+    margin: 180px;
+    color: #14a800;
+}
+.login_area a:hover{
+    color: #013220;
+}
+/*
+Hero Area CSS
+*/
+#hero_area{
+    background: #fff;
+    margin: 40px;
+    padding: 0;
+}
+.inner_hero{
+    overflow: visible;
+    display: block;
+    width: 65%;
+}
+.inner_hero img{
+    margin-right: 45px;
+    margin-bottom: 0;
+    margin-left: 45px;
+}
+.inner_hero h4{
+    color: #666666;
+    font-size: 30px;
+    line-height: 1em;
+    font-weight: normal;
+    margin-bottom: 15px;
+}
+.inner_hero p{
+    color: #666666;
+    font-size: 16px;
+    font-weight: normal;
+}
+.inner_hero table{
+    border-collapse: collapse;
+    width: 55%;
+}
+.inner_hero td, th{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+.inner_hero tr:nth-child(even) {
+    background-color: #dddddd;
+}
+/*
+Profile Area CSS
+*/
+#profile_area{
+    background: #fff;
+    margin: 40px;
+    padding: 0;
+}
+.inner_profile{
+    overflow: visible;
+    display: block;
+    width: 65%;
+}
+.inner_profile h4{
+    color: #666666;
+    font-size: 20px;
+    line-height: 1em;
+    font-weight: normal;
+    margin-top: 0;
+    margin: 0 auto 15px;
+}
+.inner_profile input{
+    background: #f2f2f2;
+    border: 0px solid;
+    padding: 15px;
+    border-radius: 10px 10px;
+    margin-bottom: 10px;
+    margin-top: 1px;
+    width: 57%;
+    display: block;
+    color: #14a800;
+    font-family: Georgia, sans-serif;
+    margin: 0 auto 15px;
+}
+.inner_profile input:focus {
+    outline: none !important;
+    border: 0.5px solid #14a800;
+}
+.inner_profile input[type="submit"]{
+    width: 150px;
+    cursor:auto;
+    font-size: 16px;
+    margin: 0 auto 164px;
+    background: #14a800;
+    color: #fff;
+}
+.inner_profile input[type="submit"]:hover{
+    color: #14a800;
+    background: #fff;
+}
+/*
+Teacher Dashboard Area CSS
+*/
+#teacherdashboard_area{
+    background: #fff;
+    margin: 40px;
+    padding: 0;
+}
+.inner_teacherdashboard{
+    overflow: visible;
+    display: block;
+    width: 65%;
+}
+.inner_teacherdashboard img{
+    margin-right: 45px;
+    margin-bottom: 0;
+    margin-left: 45px;
+}
+.inner_teacherdashboard h4{
+    color: #666666;
+    font-size: 30px;
+    line-height: 1em;
+    font-weight: normal;
+    margin-bottom: 15px;
+}
+.inner_teacherdashboard p{
+    color: #666666;
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 262px;
+}
+/*
+Feedback Area CSS
+*/
+#feedback_area{
+    background: #fff;
+    margin: 40px;
+    padding: 0;
+}
+.inner_feedback{
+    overflow: visible;
+    display: block;
+    width: 65%;
+    margin-bottom: 136px;
+}
+.inner_feedback h4{
+    color: #666666;
+    font-size: 30px;
+    line-height: 1em;
+    font-weight: normal;
+    margin-bottom: 15px;
+}
+.inner_feedback table{
+    border-collapse: collapse;
+    width: 100%;
+}
+.inner_feedback table td a{
+    text-decoration: none;
+    color: #666666;
+}
+.inner_feedback table td a span{
+    text-decoration: underline;
+    color: #14a800;
+}
+.inner_feedback table td a span:hover{
+    text-decoration: underline;
+    color: #001E00;
+}
+.inner_feedback table td a:hover{
+    color: #14a800;
+}
+.inner_feedback td, th{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+.inner_feedback tr:nth-child(even){
+    background-color: #dddddd;
+}
+/*
+Feedback Status Area CSS
+*/
+#feedbackstatus_area{
+    background: #fff;
+    margin: 40px;
+    padding: 0;
+}
+.inner_feedbackstatus{
+    overflow: visible;
+    display: block;
+    width: 100%;
+    margin-bottom: 136px;
+}
+.inner_feedbackstatus h4{
+    color: #666666;
+    font-size: 30px;
+    line-height: 1em;
+    font-weight: normal;
+    margin-bottom: 15px;
+}
+.inner_feedbackstatus h3{
+    color: #666666;
+    font-size: 20px;
+    line-height: 1em;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    float: left;
+}
+.inner_feedbackstatus table{
+    border-collapse: collapse;
+    width: 100%;
+}
+.inner_feedbackstatus .comment ul{
+    width: 75%;
+    display: block;
+    margin: 0 auto 15px;
+}
+.inner_feedbackstatus .comment ul li{
+    float: left;
+    list-style-type: none;
+    border: 1px hidden #666666;
+    border-radius: 10px 10px;
+    padding: 10px;
+    margin: 0 10px;
+}
+.inner_feedbackstatus .comment ul li:nth-child(1){
+    background-color: #00ff00;
+    color: #fff;
+}
+.inner_feedbackstatus .comment ul li:nth-child(2){
+    background-color: #adff2f;
+    color: #fff;
+}.inner_feedbackstatus .comment ul li:nth-child(3){
+    background-color: #00bfff;
+    color: #fff;
+}.inner_feedbackstatus .comment ul li:nth-child(4){
+    background-color: #f08080;
+    color: #fff;
+}.inner_feedbackstatus .comment ul li:nth-child(5){
+    background-color: #ff0000;
+    color: #fff;
+}
+/*
+Feedback Statistics Area CSS
+*/
+#feedbackstatistics_area{
+    background: #fff;
+    margin: 40px;
+    padding: 0;
+}
+.inner_feedbackstatistics{
+    overflow: visible;
+    display: block;
+    width: 100%;
+    margin-bottom: 136px;
+}
+.inner_feedbackstatistics h4{
+    color: #666666;
+    font-size: 30px;
+    line-height: 1em;
+    font-weight: normal;
+    margin-bottom: 15px;
+}
+.inner_feedbackstatistics table{
+    border-collapse: collapse;
+    width: 100%;
+}
+.inner_feedbackstatistics td, th{
+    border: none;
+    text-align: left;
+    padding: 8px;
+}
+.inner_feedbackstatistics tr:nth-child(even) {
+    background-color: #dddddd;
+}
+/*
+Footer Area CSS
+*/
+
+#footer_area{
+    background: #001E00;
+    padding: 25px;
+    margin: 0;
+    bottom: -100px;
+    width: 100%;
+    position: absolute;
+}
+.inner_footer{
+    overflow: visible;
+}
+#copyright_area{
+    background: #001E00;
+    padding: 20px;
+}
+.inner_copyright{
+    overflow: hidden;
+}
+.inner_copyright p{
+    margin: 0;
+    color: #919191;
+    font-size: 12px;
+}
+.left_copyright{
+    width: 60%;
+    float: left;
+}
+.right_copyright{
+    width: 40%;
+    float: right;
+    text-align: right;
+}

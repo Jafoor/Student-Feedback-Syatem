@@ -8,12 +8,25 @@ from account.models import *
 
 
 class Subject(models.Model):
-    name = models.CharField(max_length=250, blank=True)
-    dept = models.CharField(max_length=250, blank=True)
+    name = models.CharField(max_length=250,)
+    dept = models.ForeignKey(Dept, on_delete=models.CASCADE)
     subcode = models.CharField(max_length=50, unique=True)
+
+    class Meta:
+        ordering = ['subcode']
 
     def __str__(self):
         return self.name
+
+
+class SemesterSubject(models.Model):
+
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.subject.name
+
 
 class Question(models.Model):
     name = models.CharField(max_length=200, unique=True)

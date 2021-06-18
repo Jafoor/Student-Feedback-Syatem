@@ -94,11 +94,6 @@ def addreviewset(request):
         endtime = request.POST.get('endtime')
         semester = request.POST.get('semester')
         b = ReviewSet(name =name,teacher=teacher,subject=subject,endtime=endtime,semester=semester)
-        print(name)
-        print(teacher)
-        print(semester)
-        print(endtime)
-        print(subject)
         b.save()
         return redirect('setquestion',pk=b.pk)
 

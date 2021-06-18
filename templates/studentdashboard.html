@@ -22,26 +22,13 @@
                 <th>Course Id</th>
                 <th>Course Name</th>
             </tr>
+            {% for i in subjects %}
             <tr>
-                <td>CSE 3101</td>
-                <td>Theory of Computation</td>
+                <td>{{i.subject.subcode}}</td>
+                <td>{{ i }}</td>
             </tr>
-            <tr>
-                <td>CSE 3102</td>
-                <td>Operating System</td>
-            </tr>
-            <tr>
-                <td>CSE 3103</td>
-                <td>Data Communication</td>
-            </tr>
-            <tr>
-                <td>CSE 3104</td>
-                <td>Periphral</td>
-            </tr>
-            <tr>
-                <td>CSE 3105</td>
-                <td>Numerical Method</td>
-            </tr>
+            {% endfor %}
+
         </table>
     </div>
 </section>

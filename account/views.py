@@ -17,10 +17,11 @@ from django.contrib.auth.models import User
 def home(request):
     user = request.user
     student = get_object_or_404(StudentProfile, user=user)
-    print(student)
+    subjects = SemesterSubject.objects.filter(semester=student.year_semester)
     context = {
         'stuprofile' : student,
         'user' : user,
+        'subjects' : subjects,
     }
     return render(request, 'studentdashboard.html', context)
 

@@ -13,10 +13,10 @@ class UserAdminConfig(UserAdmin):
     model = User
     search_fields = ('email', 'first_name',  'last_name',)
     list_filter = ('email', 'first_name', 'last_name', 'is_active', 'is_staff')
-    list_display = ('email', 'first_name',  'last_name',
+    list_display = ('email', 'username', 'first_name',  'last_name',
                     'is_active', 'is_staff')
     fieldsets = (
-        (None, {'fields': ('email', 'first_name', 'last_name',)}),
+        (None, {'fields': ('email', 'username', 'first_name', 'last_name',)}),
         ('Permissions', {'fields': ('is_staff', 'is_active',)}),
 
     )
@@ -29,3 +29,6 @@ class UserAdminConfig(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdminConfig)
+admin.site.register(Dept)
+admin.site.register(Batch)
+admin.site.register(Semester)

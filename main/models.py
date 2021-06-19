@@ -41,10 +41,12 @@ class ReviewSet(models.Model):
     name = models.CharField(max_length=200, blank=True)
     semester = models.ForeignKey(Semester, default="", on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, default="", on_delete=models.CASCADE)
+    dept = models.ForeignKey(Dept, default="", on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, default="", on_delete=models.CASCADE)
     question = models.ManyToManyField(Question)
     created = models.DateTimeField(default=datetime.now)
     endtime = models.DateTimeField( blank=True,null=True)
+    stop = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

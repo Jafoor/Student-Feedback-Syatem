@@ -50,6 +50,7 @@ class StudentProfile(models.Model):
 class Teacher(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_pic = models.ImageField(upload_to='profile_pic_teacher', default='teacher.jpeg')
     dept = models.OneToOneField(Dept, on_delete=models.CASCADE)
     teacherid = models.CharField(max_length=200, blank=True)
     mobilenum = models.CharField(max_length=15, blank=True)

@@ -1,0 +1,37 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block body %}
+
+{% include 'navbar.html' %}
+
+<section id="hero_area">
+    <div class="inner_hero container">
+         <img src="{{ teacher.profile_pic.url }}" style="height: 279px; width: 233px;" alt="" class="alignleft">
+        <h4>{{teacher.user.first_name}} {{teacher.user.last_name}}</h4>
+        <p>
+            Email: {{user.email}}<br>
+            Teacher ID: {{teacher.teacherid}} <br>
+            Dept: {{teacher.dept}}<br>
+            Contact No: {{teacher.contantnum}}<br>
+            Course Review List Avarage: <br>
+        </p>
+        <table>
+            <tr>
+                <th>Course Name</th>
+                <th>Semester</th>
+                <th>Rating</th>
+            </tr>
+            {% for i,j in reviewslist %}
+            <tr>
+                <td>{{i.subject}}</td>
+                <td>{{ i.semester }}</td>
+                <td>{{ j.avg}}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+</section>
+
+{% endblock %}

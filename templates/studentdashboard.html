@@ -8,7 +8,7 @@
 <section id="hero_area">
     <div class="inner_hero container">
         <img src="{{ stuprofile.profile_pic.url }}" alt="" class="alignleft">
-        <h4>{{stuprofile.fname}} {{stuprofile.lname}}</h4>
+        <h4>{{stuprofile.user.first_name}} {{stuprofile.user.last_name}}</h4>
         <p>
             {{stuprofile.year_semester}}<br>
             Roll No: {{user.username}} <br>
@@ -26,6 +26,27 @@
             <tr>
                 <td>{{i.subject.subcode}}</td>
                 <td>{{ i }}</td>
+                <td>{{ i.subject.}}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+      <h4>Review List:</h4>
+        <table>
+            <tr>
+
+                <th>Course Name</th>
+                <th>Last Date</th>
+                <th>Status</th>
+
+            </tr>
+            {% for i, status in reviewslist %}
+            <tr>
+
+                <td><a href="{% url 'submitanswer' pk=i.id %}"> {{ i.subject }}</a></td>
+                <td>{{ i.endtime }}</td>
+                <td>{{ status }}</td>
             </tr>
             {% endfor %}
 

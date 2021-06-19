@@ -5,39 +5,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-import datetime
+from datetime import datetime
 from django.utils.timezone import utc
 from django.contrib.auth.models import Group
 from account.models import *
 
-# Create your views here.
-
-def listToString(s):
-
-    str1 = ""
-    l = len(s)
-    i = 0
-    for ele in s:
-        if(i != l-1):
-            str1 += ele
-            str1 += ','
-        else:
-            str1 += ele
-        i += 1
-
-    return str1
-
-def revpoint(l):
-
-    str2 = ""
-    i = 0
-    for j in range(0,l):
-        if j != l-1:
-            str2 += '0'
-            str2 += ','
-        else:
-            str2 += '0'
-    return str2
 
 @login_required(login_url = '/login/')
 def submitanswer(request,pk):
@@ -50,39 +22,45 @@ def submitanswer(request,pk):
 
             doubleyes = Review.objects.filter(user=request.user)
             if not doubleyes:
-                question = reviewset.question.all()
-                user = request.user
 
-                if request.method == 'POST':
-                    reviewdetails = get_object_or_404(ReviewDetails, review=reviewset)
-                    total = reviewdetails.totalpoint
-                    for idx, item in enumerate(question,1):
-                        name = "inp"+str(idx)
-                        value = request.POST.get(name)
-                        value = int(value)
-                        total += value
-                        newreview = Review(reviewfor=reviewset, question=item, user=user, point=value)
-                        newreview.save()
+                now = datetime.utcnow().replace(tzinfo=utc)
 
-                    reviewdetails.usergiven = reviewdetails.usergiven + 1
+                if reviewset.endtime >= now:
+                    question = reviewset.question.all()
+                    user = request.user
 
-                    reviewdetails.totalpoint = reviewdetails.totalpoint + total
-                    reviewdetails.save()
-                    reviewdetails = get_object_or_404(ReviewDetails, review=reviewset)
-                    print(reviewdetails.totalpoint)
-                    print(reviewdetails.usergiven)
-                    avg = (reviewdetails.totalpoint*5)/((len(question)*5)*reviewdetails.usergiven)
-                    reviewdetails.avg = avg
-                    reviewdetails.save()
-                    messages.info(request, 'Successfully added review')
-                    return redirect('home')
+                    if request.method == 'POST':
+                        reviewdetails = get_object_or_404(ReviewDetails, review=reviewset)
+                        total = reviewdetails.totalpoint
+                        for idx, item in enumerate(question,1):
+                            name = "inp"+str(idx)
+                            value = request.POST.get(name)
+                            value = int(value)
+                            total += value
+                            newreview = Review(reviewfor=reviewset, question=item, user=user, point=value)
+                            newreview.save()
 
-                context = {
-                    'question': question,
-                    'reviewset': reviewset,
+                        reviewdetails.usergiven = reviewdetails.usergiven + 1
 
-                }
-                return render(request, 'front/feedback_status.html', context )
+                        reviewdetails.totalpoint = reviewdetails.totalpoint + total
+                        reviewdetails.save()
+                        reviewdetails = get_object_or_404(ReviewDetails, review=reviewset)
+                        print(reviewdetails.totalpoint)
+                        print(reviewdetails.usergiven)
+                        avg = (reviewdetails.totalpoint*5)/((len(question)*5)*reviewdetails.usergiven)
+                        reviewdetails.avg = avg
+                        reviewdetails.save()
+                        messages.info(request, 'Successfully added review')
+                        return redirect('home')
+
+                    context = {
+                        'question': question,
+                        'reviewset': reviewset,
+
+                    }
+                    return render(request, 'front/feedback_status.html', context )
+                else:
+                    return render(request, 'front/timeover.html')
             else:
                 return render(request, 'front/given.html' )
         else:

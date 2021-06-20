@@ -20,7 +20,7 @@ def submitanswer(request,pk):
         reviewset = get_object_or_404(ReviewSet, pk=pk)
         if yes[0].year_semester == reviewset.semester:
 
-            doubleyes = Review.objects.filter(user=request.user)
+            doubleyes = Review.objects.filter(user=request.user, reviewfor=reviewset)
             if not doubleyes:
 
                 now = datetime.utcnow().replace(tzinfo=utc)

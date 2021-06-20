@@ -36,11 +36,11 @@ class Semester(models.Model):
 
 class StudentProfile(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='profile_pic', default='img_avatar2.png')
-    dept = models.OneToOneField(Dept, on_delete=models.CASCADE)
-    batch = models.OneToOneField(Batch, on_delete=models.CASCADE)
-    year_semester = models.OneToOneField(Semester, default="", on_delete=models.CASCADE)
+    dept = models.ForeignKey(Dept, on_delete=models.CASCADE)
+    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+    year_semester = models.ForeignKey(Semester, default="", on_delete=models.CASCADE)
     contantnum = models.CharField(max_length=15, blank=True, null=True)
 
     def __str__(self):
@@ -49,9 +49,9 @@ class StudentProfile(models.Model):
 
 class Teacher(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='profile_pic_teacher', default='teacher.jpeg')
-    dept = models.OneToOneField(Dept, on_delete=models.CASCADE)
+    dept = models.ForeignKey(Dept, on_delete=models.CASCADE)
     teacherid = models.CharField(max_length=200, blank=True)
     mobilenum = models.CharField(max_length=15, blank=True)
 

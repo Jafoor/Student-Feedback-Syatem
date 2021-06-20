@@ -64,7 +64,7 @@ class Review(models.Model):
 
 class ReviewDetails(models.Model):
 
-    review = models.OneToOneField(ReviewSet, on_delete=models.CASCADE)
+    review = models.ForeignKey(ReviewSet, on_delete=models.CASCADE)
     usergiven = models.IntegerField(default=0)
     totalpoint = models.DecimalField(max_digits=20, decimal_places=4, default=0.0)
     avg = models.DecimalField(max_digits=20, decimal_places=4, default=0.0)

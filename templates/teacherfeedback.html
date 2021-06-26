@@ -1,0 +1,30 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block body %}
+
+{% include 'navbar.html' %}
+
+<section id="hero_area">
+    <div class="inner_hero container">
+         
+        <h1>Review List</h1>
+        <table>
+            <tr>
+                <th>Course Name</th>
+                <th>Semester</th>
+                <th>Rating</th>
+            </tr>
+            {% for i,j in reviewslist %}
+            <tr>
+                <td>{{i.subject}}</td>
+                <td>{{ i.semester }}</td>
+                <td>{{ j.avg}}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+</section>
+
+{% endblock %}

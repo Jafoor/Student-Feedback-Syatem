@@ -1,0 +1,33 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block body %}
+
+{% include 'navbar.html' %}
+
+<section id="hero_area">
+    <div class="inner_hero container">
+
+      <h4>Review List:</h4>
+        <table>
+            <tr>
+
+                <th>Course Name</th>
+                <th>Last Date</th>
+                <th>Status</th>
+
+            </tr>
+            {% for i, status in reviewslist %}
+            <tr>
+
+                <td><a href="{% url 'submitanswer' pk=i.id %}"> {{ i.subject }}</a></td>
+                <td>{{ i.endtime }}</td>
+                <td>{{ status }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+</section>
+
+{% endblock %}

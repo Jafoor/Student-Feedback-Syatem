@@ -62,7 +62,52 @@ def home(request):
 
 
 
+@login_required(login_url = '/login/')
+def feedback(request):
+    user = request.user
+    students = StudentProfile.objects.filter(user=user)
+    teachers = Teacher.objects.filter(user=user)
+    if students:
+        student = get_object_or_404(StudentProfile, user=user)
+        subjects = SemesterSubject.objects.filter(semester=student.year_semester)
+        reviews = ReviewSet.objects.filter(semester = student.year_semester, dept=student.dept)
+        list = []
+        for rev in reviews:
+            now = datetime.utcnow().replace(tzinfo=utc)
+            given = Review.objects.filter(reviewfor=rev, user=user)
+            if given:
+                list.append('Given')
+            elif rev.endtime < now:
+                list.append('Time Over')
+            else:
+                list.append('Not Given')
+        reviewslist = zip(reviews, list)
+        context = {
+            'stuprofile' : student,
+            'user' : user,
+            'subjects' : subjects,
+            'reviewslist' : reviewslist,
+        }
+        return render(request, 'feedback.html', context)
+    elif teachers:
+        teacher = get_object_or_404(Teacher, user=user)
+        reviews = ReviewSet.objects.filter(teacher=teacher)
+        list = []
+        for rev in reviews:
+            revdetais = ReviewDetails.objects.get(review=rev)
+            list.append(revdetais)
+        reviewslist = zip(reviews, list)
 
+        context = {
+            'teacher': teacher,
+            'user': user,
+            'reviewslist': reviewslist,
+        }
+        return render(request, 'teacherfeedback.html', context)
+    elif user.is_staff:
+        return render(request, 'admindashboard.html')
+    else:
+        return render(request, 'usernotgivenrole.html')
 
 
 

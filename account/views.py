@@ -3,8 +3,9 @@ from .models import *
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from .forms import CreateUserForm
 from datetime import datetime
 from django.utils.timezone import utc
@@ -109,42 +110,6 @@ def feedback(request):
     else:
         return render(request, 'usernotgivenrole.html')
 
-
-
-# def registerPage(request):
-#     if request.user.is_authenticated:
-#         return redirect('home')
-#     else:
-#         form = CreateUserForm()
-#
-#         if request.method == 'POST':
-#             form = CreateUserForm(request.POST)
-#             if form.is_valid():
-#                 user = form.save()
-#                 username = form.cleaned_data.get('username')
-#
-#                 messages.success(request, 'Account was created for ' + username)
-#                 print(user)
-#
-#                 f = request.POST.get('type')
-#
-#                 if f == 'student':
-#                     b = StudentProfile(user = user)
-#
-#                     b.save()
-#                     group = Group.objects.get(name="student")
-#                     user.groups.add(group)
-#                 if f == 'teacher':
-#
-#                     b = Teacher(name = user)
-#                     b.save()
-#                     group = Group.objects.get(name="teacher")
-#                     user.groups.add(group)
-#
-#                 return redirect('login')
-#
-#         context = {'form': form}
-#         return render(request , 'front/register.html', context)
 def loginPage(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -169,6 +134,20 @@ def loginPage(request):
 def logoutUser(request):
 	logout(request)
 	return redirect('login')
+
+@login_required(login_url = '/login/')
+def changepass(request):
+
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('home')   
+    else:
+        form = PasswordChangeForm(user=request.user)
+
+    return render(request, 'changepassword.html', {'form': form})
 
 
 @login_required(login_url = '/login/')

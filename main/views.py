@@ -45,8 +45,6 @@ def submitanswer(request,pk):
                         reviewdetails.totalpoint = reviewdetails.totalpoint + total
                         reviewdetails.save()
                         reviewdetails = get_object_or_404(ReviewDetails, review=reviewset)
-                        print(reviewdetails.totalpoint)
-                        print(reviewdetails.usergiven)
                         avg = (reviewdetails.totalpoint*5)/((len(question)*5)*reviewdetails.usergiven)
                         reviewdetails.avg = avg
                         reviewdetails.save()

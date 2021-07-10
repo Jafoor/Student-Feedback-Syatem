@@ -70,6 +70,16 @@ class Teacher(models.Model):
     def __str__(self):
         return str(self.teacherid)
 
+class Staff(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile_pic = models.ImageField(upload_to='profile_pic_teacher', default='teacher.jpeg')
+    dept = models.ForeignKey(Dept, on_delete=models.CASCADE)
+    mobilenum = models.CharField(max_length=15, blank=True)
+    pass_updated = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.user.first_name)
+
 
 # @receiver(post_save, sender=User)
 # def create_user_email_confirmation(sender, instance, created, **kwargd):

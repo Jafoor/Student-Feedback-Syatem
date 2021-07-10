@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^logout/$',views.logoutUser, name = "logout"),
     url(r'^changepass/$',views.changepass, name = "changepass"),
     url(r'^dashboard/$',views.dashboard, name = "dashboard"),
+    path('notgiven/<int:pk>', views.notgiven, name='notgiven'),
     url(r'^feedback/$',views.feedback, name = "feedback"),
     ]

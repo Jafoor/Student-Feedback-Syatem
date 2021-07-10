@@ -153,10 +153,10 @@ def loginPage(request):
                     if user1 is None:
                         teacher.pass_updated = True
                         teacher.save()
-
+            staff = Staff.objects.filter(user=user)
             if user is not None:
                 login(request, user)
-                if request.user.is_staff:
+                if staff:
                     return redirect('dashboard')
                 return redirect('home')
             else:
@@ -187,7 +187,48 @@ def changepass(request):
 @login_required(login_url = '/login/')
 def dashboard(request):
 
-    return render(request, 'back/dashboard.html')
+    user = request.user
+    staff = get_object_or_404(Staff, user=user)
+    print(staff.dept)
+    reviewset = ReviewSet.objects.filter(dept=staff.dept)
+    revdet = []
+    for i in reviewset:
+        x = ReviewDetails.objects.get(review=i)
+        revdet.append(x)
+    allrevs = zip(reviewset, revdet)
+    context = {
+        'allrevs': allrevs,
+        'user': user,
+        'staff': staff
+    }
+    return render(request, 'back/dashboard.html', context)
+
+@login_required(login_url = '/login/')
+def notgiven(request, pk):
+
+    revset = get_object_or_404(ReviewSet, pk=pk)
+    students = StudentProfile.objects.filter(dept=revset.dept)
+    reviews = Review.objects.filter(reviewfor=revset)
+    given = []
+    for i in reviews:
+        if i.user not in given:
+            given.append(i.user)
+    notgivenstu = []
+    for i in students:
+        if i not in given:
+            notgivenstu.append(i)
+
+    print(revset)
+    print(notgivenstu)
+    print(given)
+
+    context = {
+        'notgiven': notgivenstu
+    }
+
+    return render(request, 'back/notgiven.html', context)
+
+
 
 
 def email_confirm(request, activation_key):

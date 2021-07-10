@@ -1,0 +1,30 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block body %}
+
+{% include 'navbar.html' %}
+
+<section id="hero_area">
+    <div class="inner_hero container">
+        <table>
+            <tr>
+                <th>Roll</th>
+                <th>Semester</th>
+                <th>Email</th>
+            </tr>
+            {% for i in notgiven %}
+            <tr>
+                <td>{{i.user.username}}</td>
+                <td>{{i.year_semester}}</td>
+                <td>{{ i.user.email }}</td>
+
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+</section>
+
+
+{% endblock %}

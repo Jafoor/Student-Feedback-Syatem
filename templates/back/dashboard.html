@@ -1,13 +1,42 @@
-
-
-{% extends 'back/master.html' %}
+{% extends 'master.html' %}
 {% load static %}
 
-{% block title %}
-  Dashboard
-{% endblock %}
-{% block content %}
+{% block body %}
 
+{% include 'navbar.html' %}
+
+<section id="hero_area">
+    <div class="inner_hero container">
+         <img src="{{ staff.profile_pic.url }}" style="height: 279px; width: 233px;" alt="" class="alignleft">
+        <h4>{{teacher.user.first_name}} {{teacher.user.last_name}}</h4>
+        <p>
+            Email: {{user.email}}<br>
+            Dept: {{staff.dept}} <br>
+            Contact No: {{staff.contantnum}}<br>
+            <a href="{% url 'changepass' %}">Update Password</a><br>
+            Course Review List Avarage: <br>
+        </p>
+        <table>
+            <tr>
+                <th>Course Name</th>
+                <th>Semester</th>
+                <th>Teacher</th>
+                <th>Rating</th>
+                <th>Not Given</th>
+            </tr>
+            {% for i,j in allrevs %}
+            <tr>
+                <td>{{i.subject}}</td>
+                <td>{{ i.semester }}</td>
+                <td>{{i.teacher}}</td>
+                <td>{{ j.avg}}</td>
+                <td><a href="{% url 'notgiven' pk=i.pk %}">view</a></td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+</section>
 
 
 {% endblock %}

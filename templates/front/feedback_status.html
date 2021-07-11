@@ -1,0 +1,67 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block body %}
+
+{% include 'navbar.html' %}
+
+<section id="feedbackstatus_area">
+    <div class="inner_feedbackstatus container">
+        <h4>Feedback Form</h4>
+        <p>
+            Course ID: {{reviewset.subject.subcode}}<br>
+            Course Name: {{reviewset.subject.name}}<br>
+            Course Instructor: {{reviewset.teacher.user.first_name}} {{reviewset.teacher.user.last_name}}<br>
+            Dept. of Computer Science and Engineering<br>
+            Feedback Status: Not Given<br>
+        </p>
+        <div class="feedback_form" >
+            <h3>Please give your answer about the following question by clicking the given grade on the scale:</h3>
+            <div class="comment">
+                <ul>
+                    <li>Strongly Agree 5</li>
+                    <li>Agree 4</li>
+                    <li>Neutral 3</li>
+                    <li>Disagree 2</li>
+                    <li>Strongly disagree 1</li>
+                </ul>
+            </div>
+            <table>
+               <tr>
+
+               </tr>
+
+              <form class="" action="" method="post">
+
+              {% csrf_token %}
+
+               {% for q in question %}
+                <tr>
+                    <td><b>{{ forloop.counter }}:</b>{{q}}</td>
+                    <td>
+                        <input type="radio" name="inp{{forloop.counter}}" value="5" required> 5
+                        <input type="radio" name="inp{{forloop.counter}}" value="4">4
+                        <input type="radio" name="inp{{forloop.counter}}" value="3"> 3
+                        <input type="radio" name="inp{{forloop.counter}}" value="2">2
+                        <input type="radio" name="inp{{forloop.counter}}" value="1">1
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td>
+                  <button style="padding: 10px 20px; border-radius: 10px; background-color: #04AA6D; border: None;" type="submit">Submit</button>
+                  </td>
+                </tr>
+
+
+
+                </form>
+
+            </table>
+
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

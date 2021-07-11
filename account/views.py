@@ -154,6 +154,13 @@ def loginPage(request):
                         teacher.pass_updated = True
                         teacher.save()
             staff = Staff.objects.filter(user=user)
+            if staff:
+                staff = get_object_or_404(Staff, user=user)
+                if staff.pass_updated == False:
+                    user1 = authenticate(request, username = username, password = "12abAB!@")
+                    if user1 is None:
+                        staff.pass_updated = True
+                        staff.save()
             if user is not None:
                 login(request, user)
                 if staff:
@@ -189,25 +196,28 @@ def dashboard(request):
 
     user = request.user
     staff = get_object_or_404(Staff, user=user)
-    print(staff.dept)
-    reviewset = ReviewSet.objects.filter(dept=staff.dept)
-    revdet = []
-    for i in reviewset:
-        x = ReviewDetails.objects.get(review=i)
-        revdet.append(x)
-    allrevs = zip(reviewset, revdet)
-    context = {
-        'allrevs': allrevs,
-        'user': user,
-        'staff': staff
-    }
-    return render(request, 'back/dashboard.html', context)
+    if staff.pass_updated:
+        print(staff.dept)
+        reviewset = ReviewSet.objects.filter(dept=staff.dept)
+        revdet = []
+        for i in reviewset:
+            x = ReviewDetails.objects.get(review=i)
+            revdet.append(x)
+        allrevs = zip(reviewset, revdet)
+        context = {
+            'allrevs': allrevs,
+            'user': user,
+            'staff': staff
+        }
+        return render(request, 'back/dashboard.html', context)
+    else:
+        return render(request, 'passwordnotupdated.html')
 
 @login_required(login_url = '/login/')
 def notgiven(request, pk):
 
     revset = get_object_or_404(ReviewSet, pk=pk)
-    students = StudentProfile.objects.filter(dept=revset.dept)
+    students = StudentProfile.objects.filter(dept=revset.dept, year_semester=revset.semester)
     reviews = Review.objects.filter(reviewfor=revset)
     given = []
     for i in reviews:
@@ -215,7 +225,7 @@ def notgiven(request, pk):
             given.append(i.user)
     notgivenstu = []
     for i in students:
-        if i not in given:
+        if i.user not in given:
             notgivenstu.append(i)
 
     print(revset)

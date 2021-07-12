@@ -42,7 +42,7 @@ def submitanswer(request,pk):
 
                         reviewdetails.usergiven = reviewdetails.usergiven + 1
 
-                        reviewdetails.totalpoint = reviewdetails.totalpoint + total
+                        reviewdetails.totalpoint = total
                         reviewdetails.save()
                         reviewdetails = get_object_or_404(ReviewDetails, review=reviewset)
                         avg = (reviewdetails.totalpoint*5)/((len(question)*5)*reviewdetails.usergiven)

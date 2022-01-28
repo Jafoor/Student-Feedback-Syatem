@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^dashboard/$',views.dashboard, name = "dashboard"),
     path('notgiven/<int:pk>', views.notgiven, name='notgiven'),
     url(r'^feedback/$',views.feedback, name = "feedback"),
+    path('reviewdetails/<int:pk>', views.chairmanViewDetails, name='chairmanViewDetails')
     ]

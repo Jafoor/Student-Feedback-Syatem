@@ -1,0 +1,30 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block body %}
+
+{% include 'navbar.html' %}
+
+<section id="hero_area">
+    <div class="inner_hero container">
+        <img src="{{ reviewset.teacher.profile_pic.url }}" style="height: 279px; width: 233px;" alt="" class="alignleft">
+        <h4>{{reviewset.teacher.user.first_name}} {{reviewset.teacher.user.last_name}}</h4>
+        <h2>{{reviewset.name}}</h2>
+        <h5>{{reviewset.semester.name}}</h5>
+        <table>
+            <tr>
+                <th>Question</th>
+                <th>Avg. Point</th>
+            </tr>
+            {% for i,j in questionRiv %}
+            <tr>
+                <td>{{i}}</td>
+                <td>{{j}}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+</section>
+
+{% endblock %}

@@ -50,19 +50,36 @@ def home(request):
     elif teachers:
         teacher = get_object_or_404(Teacher, user=user)
         if teacher.pass_updated:
-            reviews = ReviewSet.objects.filter(teacher=teacher)
-            list = []
-            for rev in reviews:
-                revdetais = ReviewDetails.objects.get(review=rev)
-                list.append(revdetais)
-            reviewslist = zip(reviews, list)
 
-            context = {
-                'teacher': teacher,
-                'user': user,
-                'reviewslist': reviewslist,
-            }
-            return render(request, 'teacherdashboard.html', context)
+            if teacher.chairman:
+                reviews = ReviewSet.objects.filter(dept=teacher.dept)
+
+                list = []
+                for rev in reviews:
+                    revdetais = ReviewDetails.objects.get(review=rev)
+                    list.append(revdetais)
+                reviewslist = zip(reviews, list)
+                print(teacher)
+                context = {
+                    'teacher': teacher,
+                    'user': user,
+                    'reviewslist': reviewslist,
+                }
+                return render(request, 'chairmandashboard.html', context)
+            else: 
+                reviews = ReviewSet.objects.filter(teacher=teacher)
+                list = []
+                for rev in reviews:
+                    revdetais = ReviewDetails.objects.get(review=rev)
+                    list.append(revdetais)
+                reviewslist = zip(reviews, list)
+
+                context = {
+                    'teacher': teacher,
+                    'user': user,
+                    'reviewslist': reviewslist,
+                }
+                return render(request, 'teacherdashboard.html', context)
         else:
             return render(request, 'passwordnotupdated.html')
     elif user.is_staff:
@@ -252,6 +269,31 @@ def email_confirm(request, activation_key):
         instance.save()
 
         return render(request, 'App_Account/registration_complete.html')
+
+def chairmanViewDetails(request, pk):
+    user = request.user
+    teacher = Teacher.objects.filter(user=user)
+    if teacher:
+        teacher = get_object_or_404(Teacher, user=user)
+        if teacher.chairman:
+            reviewset = get_object_or_404(ReviewSet, pk=pk)
+            Questions = []
+            avgScore = []
+            for i in reviewset.question.all():
+                Questions.append(i.name)
+                points = Review.objects.filter(reviewfor = pk, question=i.pk)
+                total = 0
+                for j in points:
+                    total += j.point
+                
+                avgScore.append(total/len(points))
+            questionRiv = zip(Questions, avgScore)
+            print(questionRiv)
+            context = {
+                'questionRiv': questionRiv,
+                'reviewset': reviewset
+            }
+            return render(request, 'viewDetailsReviewbyChairman.html', context)
 
 # def applyforrole(request):
 

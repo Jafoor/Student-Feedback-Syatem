@@ -66,7 +66,7 @@ class Teacher(models.Model):
     teacherid = models.CharField(max_length=200, blank=True)
     mobilenum = models.CharField(max_length=15, blank=True)
     pass_updated = models.BooleanField(default=False)
-
+    chairman = models.BooleanField(default=False)
     def __str__(self):
         return str(self.teacherid)
 
